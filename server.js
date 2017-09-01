@@ -1,0 +1,53 @@
+/**
+ * Created by ntutikyan on 05.08.2017.
+ */
+
+'use strict';
+// call the packages we need
+const express    = require('express');
+const bodyParser = require('body-parser');
+const app        = express();
+const morgan     = require('morgan');
+const mongoose   = require('mongoose');
+
+mongoose.connect('mongodb://localhost:27017/bread'); // connect to our database
+
+const port = process.env.PORT || 8080; // set our port
+
+// configure app
+app.use(morgan('dev')); // log requests to the console
+
+// configure body parser
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// ROUTES FOR OUR API
+// =============================================================================
+
+// create our router
+const router = express.Router();
+
+// middleware to use for all requests
+router.use((req, res, next) => {
+    // do logging
+    console.log('Something is happening.');
+    next();
+});
+
+// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
+router.get('/', (req, res) => {
+    res.json({ message: 'hooray! welcome to our api!' });
+});
+
+// on routes that end in /bears
+// ----------------------------------------------------
+const loafs = require('./app/routes/loaf');
+app.use('/api/', loafs);
+
+// REGISTER OUR ROUTES -------------------------------
+
+
+// START THE SERVER
+// =============================================================================
+app.listen(port);
+console.log('Magic happens on port ' + port);
