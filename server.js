@@ -9,6 +9,8 @@ const bodyParser = require('body-parser');
 const app        = express();
 const morgan     = require('morgan');
 const mongoose   = require('mongoose');
+const routes    = require('./app/routes/index');
+
 
 mongoose.connect('mongodb://localhost:27017/bread'); // connect to our database
 
@@ -35,14 +37,11 @@ router.use((req, res, next) => {
 });
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-router.get('/', (req, res) => {
-    res.json({ message: 'hooray! welcome to our api!' });
-});
+
 
 // on routes that end in /bears
 // ----------------------------------------------------
-const loafs = require('./app/routes/loaf');
-app.use('/api/', loafs);
+app.use('/', routes);
 
 // REGISTER OUR ROUTES -------------------------------
 

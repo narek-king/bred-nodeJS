@@ -2,13 +2,10 @@
  * Created by ntutikyan on 31.08.2017.
  */
 const routes = require('express').Router();
+const api = require('./api');
+const web = require('./web');
 
 
-routes.use('/models', models);
-routes.use('/cars', cars);
-
-routes.get('/', (req, res) => {
-    res.status(200).json({ message: 'Connected!' });
-});
-
+routes.use('/api', api);
+routes.use('/', web);
 module.exports = routes;
