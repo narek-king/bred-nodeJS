@@ -2,29 +2,26 @@ const express = require('express');
 const Loaf = require('../models/loaf');
 
 module.exports = {
-    index : (req, res) => {
-        Loaf.find((err, loafs) => {
+    index: (req, res) => {
+        Loaf.find({}, '_id date', (err, loafs) => {
             if (err)
                 res.send(err);
-
             res.json(loafs);
         });
     },
 
-    store : (req, res) => {
-
+    store: (req, res) => {
         let loaf = new Loaf();		// create a new instance of the Loaf model
         loaf.title = req.body.title;  // set the loafs name (comes from the request)
 
         loaf.save((err) => {
             if (err)
                 res.send(err);
-
-            res.json({ message: 'Loaf created!' });
+            res.json({message: 'Loaf created!'});
         });
     },
 
-    show : (req, res) => {
+    show: (req, res) => {
         Loaf.findById(req.params.loaf_id, (err, loaf) => {
             if (err)
                 res.send(err);
@@ -32,7 +29,7 @@ module.exports = {
         });
     },
 
-    update : (req, res) => {
+    update: (req, res) => {
         Loaf.findById(req.params.loaf_id, (err, loaf) => {
             if (err)
                 res.send(err);
@@ -40,19 +37,18 @@ module.exports = {
             loaf.save((err) => {
                 if (err)
                     res.send(err);
-
-                res.json({ message: 'Loaf updated!' });
+                res.json({message: 'Loaf updated!'});
             });
         });
     },
 
-    destroy : (req, res) => {
+    destroy: (req, res) => {
         Loaf.remove({
             _id: req.params.loaf_id
-        }, (err, loaf) =>{
+        }, (err, loaf) => {
             if (err)
                 res.send(err);
-            res.json({ message: 'Successfully deleted' });
+            res.json({message: 'Successfully deleted'});
         });
     }
 }

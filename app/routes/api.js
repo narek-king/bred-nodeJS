@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 const loafController = require('../controller/loaf-controller');
 
-router.route('/loafs')
+router.route('/loaf')
     .post(loafController.store)
     .get(loafController.index);
 router.route('/loaf/:loaf_id')

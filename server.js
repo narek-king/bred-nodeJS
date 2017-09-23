@@ -14,7 +14,7 @@ const routes    = require('./app/routes/index');
 
 mongoose.connect('mongodb://localhost:27017/bread'); // connect to our database
 
-const port = process.env.PORT || 8080; // set our port
+const port = process.env.PORT || 8081; // set our port
 
 // configure app
 app.use(morgan('dev')); // log requests to the console
