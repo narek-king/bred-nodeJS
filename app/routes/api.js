@@ -12,5 +12,6 @@ router.route('/loaf/:loaf_id')
     .get(loafController.show)
     .put(loafController.update)
     .delete(loafController.destroy);
+router.route('/normalize-dates').post(loafController.normalizeDates);
 
 module.exports = router;
